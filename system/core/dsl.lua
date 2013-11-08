@@ -70,7 +70,6 @@ ProbablyEngine.dsl.comparator = function(condition, target, condition_spell)
   else
     evaluation = ProbablyEngine.dsl.get(condition)(target, condition_spell)
   end
-  ProbablyEngine.dsl.parsedTarget = target
   if modify_not then
     return not evaluation
   end
@@ -119,42 +118,52 @@ ProbablyEngine.dsl.parse = function(dsl, spell)
   if unitId == "lowest" then
     unitId = ProbablyEngine.raid.lowestHP()
     if unitId == false then return false end
+    ProbablyEngine.dsl.parsedTarget = unitId
   elseif unitId == "!lowest" then
     unitId = "!" .. ProbablyEngine.raid.lowestHP()
+    ProbablyEngine.dsl.parsedTarget = unitId
   elseif unitId == "tank" then
   if UnitExists("focus") then
     unitId = "focus"
+    ProbablyEngine.dsl.parsedTarget = unitId
   else
      local possibleTank = ProbablyEngine.raid.tank()
      if possibleTank then
        unitId = possibleTank
+       ProbablyEngine.dsl.parsedTarget = unitId
      end
   end
   elseif unitId == "!tank" then
     if UnitExists("focus") then
       unitId = "!focus"
+      ProbablyEngine.dsl.parsedTarget = unitId
     else
       local possibleTank = ProbablyEngine.raid.tank()
       if possibleTank then
         unitId =  "!" .. possibleTank
+        ProbablyEngine.dsl.parsedTarget = unitId
       end
     end
   elseif unitId == "tanktarget" then
     if UnitExists("focustarget") then
       unitId = "focustarget"
+      ProbablyEngine.dsl.parsedTarget = unitId
     else
       local possibleTank = ProbablyEngine.raid.tank()
       if possibleTank then
         unitId = possibleTank .. "target"
+        ProbablyEngine.dsl.parsedTarget = unitId
       end
     end
   elseif unitId == "!tanktarget" then
     if UnitExists("focustarget") then
       unitId = "!focustarget"
+      ProbablyEngine.dsl.parsedTarget = unitId
     else
       local possibleTank = ProbablyEngine.raid.tank()
       if possibleTank then
         unitId =  "!" .. possibleTank .. "target"
+        ProbablyEngine.dsl.parsedTarget = unitId
       end
     end
   end
@@ -182,7 +191,6 @@ ProbablyEngine.dsl.parse = function(dsl, spell)
     return ProbablyEngine.dsl.comparator(condition..'.'..parse_table[3], target, condition_spell)
   end
   ProbablyEngine.debug.print("Calling DSL: " .. dsl, 'dsl_call')
-  ProbablyEngine.dsl.parsedTarget = 'target'
   return ProbablyEngine.dsl.get(dsl)('target', spell)
 end
 

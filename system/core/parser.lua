@@ -82,6 +82,8 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
 
   for _, arguments in pairs(spellTable) do
 
+    ProbablyEngine.dsl.parsedTarget = nil
+
     local eventType = type(arguments[1])
     local event = arguments[1]
     local evaluationType = type(arguments[2])
@@ -127,6 +129,7 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
         evaluation = ProbablyEngine.library.parse(event, evaluation, target)
       elseif evaluationType == "nil" then
         evaluation = true
+        target = "target"
       end
     elseif eventType == "table" or eventType == "macro" or eventType == "item" then
       if evaluationType == "string"  then
