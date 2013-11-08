@@ -68,8 +68,8 @@ ProbablyEngine.rotation.register(264, {
     "!player.totem(Searing Totem)"
   }},
   { "Lightning Bolt", {
-    "tanktarget.exists",
-  }, "tanktarget" },
+    "focustarget.exists",
+  }, "focustarget" },
 
 },
 {
