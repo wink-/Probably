@@ -393,7 +393,7 @@ ProbablyEngine.condition.register("spell.cd", function(target, spell)
 end)
 
 ProbablyEngine.condition.register("spell.range", function(target, spell)
-  return IsSpellInRange(spell) == 1
+  return IsSpellInRange(spell, target) == 1
 end)
 
 ProbablyEngine.condition.register("range", function(target, range)
