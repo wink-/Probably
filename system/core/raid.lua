@@ -19,14 +19,14 @@ ProbablyEngine.raid.build = function()
   if UnitInRaid("player") then
     for i = 1, GetNumGroupMembers() do
       local name, rank, subgroup, level, class, fileName, zone, online, isDead = GetRaidRosterInfo(i);
-      if online then
+      if online and UnitExists('raid' .. i)  then
         ProbablyEngine.raid.roster['raid' .. i] = UnitHealth('raid' .. i)
       end
     end
   elseif UnitInParty("player") then
     for i = 1, GetNumGroupMembers() do
       local name, rank, subgroup, level, class, fileName, zone, online, isDead = GetRaidRosterInfo(i);
-      if online then
+      if online and UnitExists('party' .. i) then
         ProbablyEngine.raid.roster['party' .. i] = UnitHealth('party' .. i)
       end
     end
@@ -58,7 +58,7 @@ ProbablyEngine.raid.needsHealing = function(threshold)
   for target, health in pairs(ProbablyEngine.raid.roster) do
     local max = UnitHealthMax(target)
     local per = math.abs(math.floor(health/max*100))
-    if per < threshold and health ~= 0 then
+    if per <= threshold and health ~= 0 then
       needsHealing = needsHealing + 1
     end
   end

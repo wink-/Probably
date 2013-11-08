@@ -46,6 +46,7 @@ ProbablyEngine.dsl.comparator = function(condition, target, condition_spell)
     if condition_call == false then condition_call = 0 end
     local value = tonumber(condition_call)
     local compare_value = tonumber(comparator_table[3])
+
     if compare_value == nil then
       evaluation = comparator_table[3]  == condition_call
     else
@@ -97,6 +98,8 @@ end
 
 ProbablyEngine.dsl.parse = function(dsl, spell)
 
+  ProbablyEngine.dsl.parsedTarget = nil
+
   -- same as above, saving ram
   for i,_ in ipairs(parse_table) do parse_table[i] = nil end
 
@@ -137,21 +140,22 @@ ProbablyEngine.dsl.parse = function(dsl, spell)
       end
     end
   elseif unitId == "tanktarget" then
-  if UnitExists("focustarget") then
-    unitId = "focustarget"
-  else
-     local possibletanktarget = ProbablyEngine.raid.tanktarget()
-     if possibletanktarget then
-     unitId = possibletanktarget
-     end
-  end
+    if UnitExists("focustarget") then
+      unitId = "focustarget"
+    else
+      local possibleTank = ProbablyEngine.raid.tank()
+      if possibleTank then
+        unitId = possibleTank .. "target"
+      end
+    end
   elseif unitId == "!tanktarget" then
     if UnitExists("focustarget") then
       unitId = "!focustarget"
     else
-    local possibletanktarget = ProbablyEngine.raid.tanktarget()
-    if possibletanktarget then
-      unitId =  "!" .. possibletanktarget
+      local possibleTank = ProbablyEngine.raid.tank()
+      if possibleTank then
+        unitId =  "!" .. possibleTank .. "target"
+      end
     end
   end
 
