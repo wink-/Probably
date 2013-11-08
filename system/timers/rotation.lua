@@ -86,7 +86,6 @@ ProbablyEngine.timer.register("oocrotation", function()
   if cycle then
     local spell, target = ''
     spell, target = ProbablyEngine.parser.table(ProbablyEngine.rotation.activeOOCRotation, 'player')
-    print(spell, target)
     if target == nil then target = 'player' end
     if spell then
       local name, _, icon, _, _, _, _, _, _ = ProbablyEngine.gsi.call(spell)

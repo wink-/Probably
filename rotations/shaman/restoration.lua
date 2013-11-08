@@ -5,7 +5,8 @@ ProbablyEngine.library.register('coreHealing', {
     return ProbablyEngine.raid.needsHealing(tonumber(percent)) >= count
   end,
   needsDispelled = function(spell)
-    for unit,_ in ipairs(ProbablyEngine.raid.roster) do
+    for unit,_ in pairs(ProbablyEngine.raid.roster) do
+      print(unit, spell)
       if UnitDebuff(unit, spell) then
         ProbablyEngine.dsl.parsedTarget = unit
         return true
@@ -26,7 +27,7 @@ ProbablyEngine.rotation.register(264, {
 
   -- healing totem
   { "Healing Stream Totem" },
-  { "Manatide Totem", "player.mama < 40" },
+  { "Mana Tide Totem", "player.mana < 40" },
   { "Healing Tide Totem", "@coreHealing.needsHealing(60, 4)", "lowest" },
 
   -- Dispell
@@ -41,6 +42,11 @@ ProbablyEngine.rotation.register(264, {
     "player.buff(Unleash Life)",
   }, "lowest" },
   { "Unleash Elements", "lowest.health < 50" },
+
+  { "Healing Wave", {
+    "lowest.health < 91",
+    "lowest.debuff(Chomp)"
+  }},
 
   -- regular healing
   { "Healing Surge", "lowest.health < 40" },
