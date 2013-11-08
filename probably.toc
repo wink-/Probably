@@ -31,7 +31,6 @@ system\core\rotation.lua
 system\core\condition.lua
 system\core\dsl.lua
 system\core\library.lua
-system\core\raid.lua
 
 # Conditions
 system\conditions\core.lua
@@ -103,7 +102,6 @@ rotations\rogue\combat.lua
 rotations\rogue\subtlety.lua
 rotations\shaman\elemental.lua
 rotations\shaman\enhancement.lua
-rotations\shaman\restoration.lua
 rotations\warlock\affliction.lua
 rotations\warlock\demonology.lua
 rotations\warlock\destruction.lua
