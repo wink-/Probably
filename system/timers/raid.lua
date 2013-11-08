@@ -1,6 +1,6 @@
 -- ProbablyEngine Rotations - https://probablyengine.com/
 -- Released under modified BSD, see attached LICENSE.
 
-ProbablyEngine.listener.register("GROUP_ROSTER_UPDATE", function(...)
+ProbablyEngine.timer.register("raid", function()
   ProbablyEngine.raid.build()
-end)
+end, 2000)

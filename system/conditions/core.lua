@@ -408,5 +408,3 @@ end)
 ProbablyEngine.condition.register("combat", function(target, range)
   return UnitAffectingCombat(target)
 end)
-
-

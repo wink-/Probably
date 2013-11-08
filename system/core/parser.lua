@@ -104,6 +104,18 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
       end
     end
 
+    -- healing?
+    if target == "lowest" then
+      target = ProbablyEngine.raid.lowestHP()
+      if target == false then return end
+    elseif target == "tank" then
+      if UnitExists("focus") then
+        target = "focus"
+      else
+        target = ProbablyEngine.raid.tank()
+      end
+    end
+
     if eventType == "string" then
       if evaluationType == "string"  then
         evaluation = ProbablyEngine.dsl.parse(evaluation, event)
@@ -124,14 +136,14 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
       elseif evaluationType == "function" then
         evaluation = evaluation()
       elseif evaluationType == "library" then
-        evaluation = ProbablyEngine.library.parse(event, evaluation, target)      
+        evaluation = ProbablyEngine.library.parse(event, evaluation, target)
       elseif evaluationType == "nil" then
         evaluation = true
       end
     end
 
     if target == nil then
-      target = "target"
+      target = ProbablyEngine.dsl.parsedTarget or "target"
     end
 
     if eventType == "item" then

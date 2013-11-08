@@ -46,6 +46,7 @@ ProbablyEngine.dsl.comparator = function(condition, target, condition_spell)
     if condition_call == false then condition_call = 0 end
     local value = tonumber(condition_call)
     local compare_value = tonumber(comparator_table[3])
+
     if compare_value == nil then
       evaluation = comparator_table[3]  == condition_call
     else
@@ -69,6 +70,7 @@ ProbablyEngine.dsl.comparator = function(condition, target, condition_spell)
   else
     evaluation = ProbablyEngine.dsl.get(condition)(target, condition_spell)
   end
+  ProbablyEngine.dsl.parsedTarget = target
   if modify_not then
     return not evaluation
   end
@@ -96,6 +98,8 @@ end
 
 ProbablyEngine.dsl.parse = function(dsl, spell)
 
+  ProbablyEngine.dsl.parsedTarget = nil
+
   -- same as above, saving ram
   for i,_ in ipairs(parse_table) do parse_table[i] = nil end
 
@@ -107,8 +111,55 @@ ProbablyEngine.dsl.parse = function(dsl, spell)
     return ProbablyEngine.parser.table(dsl)
   end
 
-  local arg1, arg2, arg3 = strsplit('.', dsl, 3)
-  if arg1 then table.insert(parse_table, arg1) end
+
+
+  local unitId, arg2, arg3 = strsplit('.', dsl, 3)
+
+  -- healing?
+  if unitId == "lowest" then
+    unitId = ProbablyEngine.raid.lowestHP()
+    if unitId == false then return false end
+  elseif unitId == "!lowest" then
+    unitId = "!" .. ProbablyEngine.raid.lowestHP()
+  elseif unitId == "tank" then
+  if UnitExists("focus") then
+    unitId = "focus"
+  else
+     local possibleTank = ProbablyEngine.raid.tank()
+     if possibleTank then
+       unitId = possibleTank
+     end
+  end
+  elseif unitId == "!tank" then
+    if UnitExists("focus") then
+      unitId = "!focus"
+    else
+      local possibleTank = ProbablyEngine.raid.tank()
+      if possibleTank then
+        unitId =  "!" .. possibleTank
+      end
+    end
+  elseif unitId == "tanktarget" then
+    if UnitExists("focustarget") then
+      unitId = "focustarget"
+    else
+      local possibleTank = ProbablyEngine.raid.tank()
+      if possibleTank then
+        unitId = possibleTank .. "target"
+      end
+    end
+  elseif unitId == "!tanktarget" then
+    if UnitExists("focustarget") then
+      unitId = "!focustarget"
+    else
+      local possibleTank = ProbablyEngine.raid.tank()
+      if possibleTank then
+        unitId =  "!" .. possibleTank .. "target"
+      end
+    end
+  end
+
+  if unitId then table.insert(parse_table, unitId) end
   if arg2 then table.insert(parse_table, arg2) end
   if arg3 then table.insert(parse_table, arg3) end
 
@@ -131,6 +182,7 @@ ProbablyEngine.dsl.parse = function(dsl, spell)
     return ProbablyEngine.dsl.comparator(condition..'.'..parse_table[3], target, condition_spell)
   end
   ProbablyEngine.debug.print("Calling DSL: " .. dsl, 'dsl_call')
+  ProbablyEngine.dsl.parsedTarget = 'target'
   return ProbablyEngine.dsl.get(dsl)('target', spell)
 end
 
