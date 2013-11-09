@@ -2,7 +2,9 @@
 -- Released under modified BSD, see attached LICENSE.
 
 ProbablyEngine.module.register("player", {
-  cast_cache = { }
+  cast_cache = { },
+  behind = false,
+  behindTime = 0
 })
 
 ProbablyEngine.module.player.cast = function(spell)

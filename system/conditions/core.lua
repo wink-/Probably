@@ -96,6 +96,9 @@ ProbablyEngine.condition.register("embers", function(target, spell)
   return UnitPower(target, SPELL_POWER_BURNING_EMBERS, true)
 end)
 
+ProbablyEngine.condition.register("behind", function(target, spell)
+  return ProbablyEngine.module.player.behind
+end)
 
 ProbablyEngine.condition.register("combopoints", function()
   return GetComboPoints('player', 'target')
