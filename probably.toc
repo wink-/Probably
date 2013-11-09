@@ -48,6 +48,7 @@ system\modules\tooltip.lua
 system\timers\profile.lua
 system\timers\rotation.lua
 system\timers\lag.lua
+system\timers\player.lua
 system\timers\raid.lua
 system\timers\combatable.lua
 
@@ -80,6 +81,7 @@ system\listeners\addon_action_forbidden.lua
 system\listeners\player_regen_enabled.lua
 system\listeners\player_regen_disabled.lua
 system\listeners\player_target_changed.lua
+system\listeners\ui_error_message.lua
 
 # Rotations
 rotations\deathknight\blood.lua
