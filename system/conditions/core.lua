@@ -274,7 +274,7 @@ end)
 
 ProbablyEngine.condition.register("runes.depleted", function(target, spell)
     local regeneration_threshold = 1
-    for i=1,MAX_RUNES,2 do
+    for i=1,6,2 do
         start, duration, runeReady = GetRuneCooldown(i)
         start2, duration2, runeReady2 = GetRuneCooldown(i+1)
         if not runeReady and not runeReady2 and duration > 0 and duration2 > 0 and start > 0 and start2 > 0 then
