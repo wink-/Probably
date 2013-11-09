@@ -272,6 +272,21 @@ ProbablyEngine.condition.register("runes.count", function(target, rune)
   return 0
 end)
 
+ProbablyEngine.condition.register("runes.depleted", function(target, spell)
+    local regeneration_threshold = 1
+    for i=1,6,2 do
+        local start, duration, runeReady = GetRuneCooldown(i)
+        local start2, duration2, runeReady2 = GetRuneCooldown(i+1)
+        if not runeReady and not runeReady2 and duration > 0 and duration2 > 0 and start > 0 and start2 > 0 then
+            if (start-GetTime()+duration)>=regeneration_threshold and (start2-GetTime()+duration2)>=regeneration_threshold then
+                return true
+            end
+        end
+    end
+
+    return false
+end)
+
 ProbablyEngine.condition.register("runes", function(target, rune)
   return ProbablyEngine.condition["runes.count"](target, rune)
 end)
