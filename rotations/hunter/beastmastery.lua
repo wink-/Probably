@@ -1,4 +1,9 @@
 -- SPEC ID 253
+ProbablyEngine.library.register('coreHunter', {
+    petInRange = function()
+        return (IsSpellInRange('Growl', 'target') == 1)
+    end,
+})
 ProbablyEngine.rotation.register(253, {
 
     -- Pet
@@ -22,7 +27,16 @@ ProbablyEngine.rotation.register(253, {
     }},
 
     -- Cooldowns
-    { "Bestial Wrath", "modifier.cooldowns" },
+    { "Bestial Wrath", {
+        "modifier.cooldowns",
+        "player.spell(Kill Command).cooldown = 0"
+    }},
+    { "Kill Command", {
+        "pet.exists",
+        "@coreHunter.petInRange"
+    }},
+
+
     { "Stampede", "modifier.cooldowns" },
     { "A Murder of Crows", "modifier.cooldowns" },
     { "Dire Beast", "modifier.cooldowns" },
@@ -35,13 +49,7 @@ ProbablyEngine.rotation.register(253, {
         "player.buff(Frenzy).count = 5",
         "!player.buff(Bestial Wrath)"
     } },
-    { "Kill Command", {
-        "pet.exists",
-        function()
-            return (IsSpellInRange('Growl', 'target') == 1)
-        end
-        --"spell.range(Growl)" -- All pets have Growl?
-    }},
+
     { "Glaive Toss" },
     { "Powershot" },
     { "Barrage" },
