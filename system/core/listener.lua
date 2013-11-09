@@ -16,7 +16,7 @@ ProbablyEngine.listener.register = function(...)
     event, _ = select(2, ...)
     callback = select(3, ...)
   else
-    name = 'defualt'
+    name = 'default'
     event, _ = select(1, ...)
     callback = select(2, ...)
   end
@@ -28,7 +28,7 @@ ProbablyEngine.listener.register = function(...)
     ProbablyEngine.listener.handlers[name] = { }
   end
 
-  -- do we have a listender ?
+  -- do we have a listener ?
   if not ProbablyEngine.listener.listeners[name] then
     ProbablyEngine.listener.listeners[name] = CreateFrame("Frame", "PE_Events_" .. name, UIParent)
     ProbablyEngine.listener.listeners[name].handlerName = name
@@ -58,7 +58,7 @@ ProbablyEngine.listener.unregister = function(event, arg1, arg2)
     name = arg1
     callback = arg2
   else
-    name = 'defualt'
+    name = 'default'
     callback = arg1
   end
 
@@ -76,7 +76,7 @@ ProbablyEngine.listener.trigger = function(...)
     event, _ = select(2, ...)
     args = select(3, ...)
   else
-    name = 'defualt'
+    name = 'default'
     event, _ = select(1, ...)
     args = select(2, ...)
   end
