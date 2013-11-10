@@ -6,7 +6,6 @@ ProbablyEngine.library.register('coreHealing', {
   end,
   needsDispelled = function(spell)
     for unit,_ in pairs(ProbablyEngine.raid.roster) do
-      print(unit, spell)
       if UnitDebuff(unit, spell) then
         ProbablyEngine.dsl.parsedTarget = unit
         return true
