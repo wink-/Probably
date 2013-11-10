@@ -70,6 +70,7 @@ ProbablyEngine.parser.nested = function(evaluationTable, event, target)
     local evaluationType = type(evaluation)
     if evaluationType == "function" then
       eval = evaluation()
+      return eval
     elseif evaluationType == "table" then
       eval = ProbablyEngine.parser.nested(evaluation, event, target) -- for the lulz
     elseif evaluationType == "string" then
