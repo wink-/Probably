@@ -14,7 +14,7 @@ ProbablyEngine.command.register_handler({'toggle', 'enable', 'disable'}, functio
 end)
 
 ProbablyEngine.command.register_handler({'cd', 'cooldown', 'cooldowns'}, function()
-  ProbablyEngine.buttons.toggle('cooldown')
+  ProbablyEngine.buttons.toggle('cooldowns')
 end)
 
 ProbablyEngine.command.register_handler({'kick', 'interrupts', 'interrupt', 'silence'}, function()
