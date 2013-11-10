@@ -93,6 +93,13 @@ ProbablyEngine.condition.register("energy", function(target, spell)
   return UnitPower(target, SPELL_POWER_ENERGY)
 end)
 
+ProbablyEngine.condition.register("timetomax", function(target, spell)
+  local max = UnitPowerMax(target)
+  local curr = UnitPower(target)
+  local regen = select(2, GetPowerRegen(target))
+  return (max - curr) * (1.0 / regen)
+end)
+
 ProbablyEngine.condition.register("rage", function(target, spell)
   return UnitPower(target, SPELL_POWER_RAGE)
 end)
