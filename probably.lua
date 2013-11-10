@@ -5,7 +5,7 @@
 ProbablyEngine = {
   addonName = "Probably",
   addonColor = "2277dd",
-  version = "r1303",
+  version = "r1310",
   active = false,
   full = false,
   debugging = false,
