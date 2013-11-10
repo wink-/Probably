@@ -1,0 +1,3 @@
+[submodule "external/libdispellable"]
+	path = external/libdispellable
+	url = git://git.wowace.com/wow/libdispellable-1-0/mainline.git
