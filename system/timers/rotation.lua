@@ -47,7 +47,7 @@ ProbablyEngine.cycle = function(skip_verify)
         CameraOrSelectOrMoveStart(1) -- this is unlocked
         CameraOrSelectOrMoveStop(1) -- this isn't unlocked
         SetCVar("deselectOnClick", "1")
-        CastSpellByName(name)
+        CastSpellByName(GetSpellName(name))
         if icon then
           table.insert(ProbablyEngine.actionLog.log, 1, {
             event = 'Ground Cast',
@@ -56,7 +56,7 @@ ProbablyEngine.cycle = function(skip_verify)
           })
         end
       else
-        CastSpellByName(name, target)
+        CastSpellByName(GetSpellName(name), target)
         if icon then
           table.insert(ProbablyEngine.actionLog.log, 1, {
             event = 'Spell Cast',
@@ -103,7 +103,7 @@ ProbablyEngine.timer.register("oocrotation", function()
         CameraOrSelectOrMoveStart(1) -- this is unlocked
         CameraOrSelectOrMoveStop(1) -- this isn't unlocked
         SetCVar("deselectOnClick", "1")
-        CastSpellByName(name)
+        CastSpellByName(GetSpellName(name))
         if icon then
           table.insert(ProbablyEngine.actionLog.log, 1, {
             event = 'Ground Cast',
@@ -112,7 +112,7 @@ ProbablyEngine.timer.register("oocrotation", function()
           })
         end
       else
-        CastSpellByName(name, target)
+        CastSpellByName(GetSpellName(name), target)
         if icon then
           table.insert(ProbablyEngine.actionLog.log, 1, {
             event = 'Spell Cast Succeed',
