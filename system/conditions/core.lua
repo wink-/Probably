@@ -3,6 +3,19 @@
 
 local ProbablyEngineTempTable1 = { }
 local rangeCheck = LibStub("LibRangeCheck-2.0")
+local LibDispellable = LibStub("LibDispellable-1.0")
+
+GetSpellID = function(spell)
+  local match = string.match(GetSpellLink(spell) or '', 'Hspell:(%d+)|h')
+  if match then return tonumber(match) else return false end
+end
+
+ProbablyEngine.condition.register("dispellable", function(target, spell)
+  if LibDispellable:CanDispelWith(target, GetSpellID(spell)) then
+    return true
+  end
+  return false
+end)
 
 ProbablyEngine.condition.register("buff", function(target, spell)
   local buff,_,_,_,_,_,_,caster = UnitBuff(target, spell)
