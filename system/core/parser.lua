@@ -73,13 +73,16 @@ ProbablyEngine.parser.nested = function(evaluationTable, event, target)
       return eval
     elseif evaluationType == "table" then
       eval = ProbablyEngine.parser.nested(evaluation, event, target) -- for the lulz
+      return eval
     elseif evaluationType == "string" then
       if string.sub(evaluation, 1, 1) == '@' then
         eval = ProbablyEngine.library.parse(event, evaluation, target)
         if not eval then return false end
+        return eval
       else
         eval = ProbablyEngine.dsl.parse(evaluation, event)
         if not eval then return false end
+        return eval
       end
     elseif evaluationType == "nil" then
       return false
