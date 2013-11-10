@@ -13,6 +13,7 @@ external\AceConsole-3.0\AceConsole-3.0.xml
 external\AceGUI-3.0\AceGUI-3.0.xml
 external\AceConfig-3.0\AceConfig-3.0.xml
 external\ForAllIndentsAndPurposes\indent.lua
+external\LibDispellable-1.0\LibDispellable-1.0.lua
 
 # shebang
 probably.lua
