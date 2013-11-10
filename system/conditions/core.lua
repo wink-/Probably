@@ -6,7 +6,7 @@ local rangeCheck = LibStub("LibRangeCheck-2.0")
 
 ProbablyEngine.condition.register("buff", function(target, spell)
   local buff,_,_,_,_,_,_,caster = UnitBuff(target, spell)
-  if buff ~= nil and (caster == 'player' or caster == 'pet') then
+  if not not buff and (caster == 'player' or caster == 'pet') then
     return true
   end
   return false
@@ -14,7 +14,7 @@ end)
 
 ProbablyEngine.condition.register("buff.count", function(target, spell)
   local buff,_,_,count,_,_,_,caster = UnitBuff(target, spell)
-  if buff ~= nil and (caster == 'player' or caster == 'pet') then
+  if not not buff and (caster == 'player' or caster == 'pet') then
     return count
   end
   return 0
@@ -22,7 +22,7 @@ end)
 
 ProbablyEngine.condition.register("debuff", function(target, spell)
   local debuff,_,_,_,_,_,_,caster = UnitDebuff(target, spell)
-  if debuff ~= nil and (caster == 'player' or caster == 'pet') then
+  if not not debuff and (caster == 'player' or caster == 'pet') then
     return true
   end
   return false
@@ -30,7 +30,7 @@ end)
 
 ProbablyEngine.condition.register("debuff.count", function(target, spell)
   local debuff,_,_,count,_,_,_,caster = UnitDebuff(target, spell)
-  if debuff ~= nil and (caster == 'player' or caster == 'pet') then
+  if not not debuff and (caster == 'player' or caster == 'pet') then
     return count
   end
   return 0
@@ -38,7 +38,7 @@ end)
 
 ProbablyEngine.condition.register("debuff.duration", function(target, spell)
   local debuff,_,_,_,_,_,expires,caster = UnitDebuff(target, spell)
-  if debuff ~= nil and (caster == 'player' or caster == 'pet') then
+  if not not debuff and (caster == 'player' or caster == 'pet') then
     return (expires - (GetTime()-(ProbablyEngine.lag/1000)))
   end
   return 0
@@ -46,7 +46,7 @@ end)
 
 ProbablyEngine.condition.register("buff.duration", function(target, spell)
   local buff,_,_,_,_,_,expires,caster = UnitBuff(target, spell)
-  if buff ~= nil and (caster == 'player' or caster == 'pet') then
+  if not not buff and (caster == 'player' or caster == 'pet') then
     return (expires - (GetTime()-(ProbablyEngine.lag/1000)))
   end
   return 0
@@ -112,7 +112,7 @@ ProbablyEngine.condition.register("alive", function(target, spell)
 end)
 
 ProbablyEngine.condition.register("exists", function(target)
-  return (UnitExists(target) ~= nil)
+  return not not UnitExists(target)
 end)
 
 ProbablyEngine.condition.register("modifier.shift", function()
@@ -373,7 +373,7 @@ end)
 ProbablyEngine.condition.register("casting", function(target, spell)
   local castName,_,_,_,_,endTime,_,_,notInterruptibleCast = UnitCastingInfo(target)
   local channelName,_,_,_,_,endTime,_,notInterruptibleChannel = UnitChannelInfo(target)
-  if (castName == spell or channelName == spell) and spell ~= nil and spell ~= false then
+  if (castName == spell or channelName == spell) and not not spell then
     return true
   elseif notInterruptibleCast == false or notInterruptibleChannel == false then
     return true
@@ -391,11 +391,11 @@ ProbablyEngine.condition.register("spell.cooldown", function(target, spell)
 end)
 
 ProbablyEngine.condition.register("spell.usable", function(target, spell)
-  return IsUsableSpell(spell) ~= nil
+  return not not IsUsableSpell(spell)
 end)
 
 ProbablyEngine.condition.register("spell.exists", function(target, spell)
-  return IsPlayerSpell(spell) ~= nil
+  return not not IsPlayerSpell(spell)
 end)
 
 ProbablyEngine.condition.register("spell.casted", function(target, spell)
