@@ -89,21 +89,37 @@ ProbablyEngine.timer.register("oocrotation", function()
     if target == nil then target = 'player' end
     if spell then
       local name, _, icon, _, _, _, _, _, _ = ProbablyEngine.gsi.call(spell)
+
       if target ~= "ground" then
         ProbablyEngine.debug.print("Casting |T"..icon..":10:10|t ".. name .. " on ( " .. UnitName((target or 'target')) .. " )", 'spell_cast')
+      else
+        ProbablyEngine.debug.print("Casting |T"..icon..":10:10|t ".. name .. " on the ground!", 'spell_cast')
       end
+
       ProbablyEngine.buttons.icon('MasterToggle', icon)
+
       if target == "ground" then
-        ProbablEngine.print('Ground targeted spells are unsupported in OOC rotations.')
+        SetCVar("deselectOnClick", "0")
+        CameraOrSelectOrMoveStart(1) -- this is unlocked
+        CameraOrSelectOrMoveStop(1) -- this isn't unlocked
+        SetCVar("deselectOnClick", "1")
+        CastSpellByName(name)
+        if icon then
+          table.insert(ProbablyEngine.actionLog.log, 1, {
+            event = 'Ground Cast',
+            description = '|T' .. icon .. ':-1:-1:0:0|t '..spell..'',
+            time = date("%H:%M:%S")
+          })
+        end
       else
         CastSpellByName(name, target)
-      end
-      if icon then
-        table.insert(ProbablyEngine.actionLog.log, 1, {
-          event = 'Spell Cast Succeed',
-          description = '|T' .. icon .. ':-1:-1:0:0|t '..spell..'',
-          time = date("%H:%M:%S")
-        })
+        if icon then
+          table.insert(ProbablyEngine.actionLog.log, 1, {
+            event = 'Spell Cast Succeed',
+            description = '|T' .. icon .. ':-1:-1:0:0|t '..spell..'',
+            time = date("%H:%M:%S")
+          })
+        end
       end
     end
   end

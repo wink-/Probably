@@ -40,6 +40,7 @@ ProbablyEngine.parser.can_cast =  function(spell, unit)
   if spell == nil then return false end
   if unit == "ground" then unit = nil end
   if unit == nil then unit = "target" end
+  local spellId = GetSpellID(spell)
   local name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange = ProbablyEngine.gsi.call(spellId)
   local skillType, spellId = GetSpellBookItemInfo(spell)
   local isUsable, notEnoughMana = IsUsableSpell(spell)
@@ -51,6 +52,8 @@ ProbablyEngine.parser.can_cast =  function(spell, unit)
   if SpellHasRange(spell) == 1 and IsSpellInRange(spell, unit) == 0 then return false end
   if select(2, GetSpellCooldown(spell)) > 1 then return false end
   if ProbablyEngine.module.player.casting == true then return false end
+  -- handle Surging Mists manually :(
+  if spellId == 116694 or spellId == 124682 then return true end
   if UnitChannelInfo("player") == nil then return true else return false end
   return true
 end
