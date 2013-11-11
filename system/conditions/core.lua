@@ -19,32 +19,32 @@ GetSpellName = function(spell)
   return spell
 end
 
-PE_WalkBuffs = function(target, spell)
+local UnitBuff = function(target, spell)
   local buff, count, caster, expires, spellID
-  if tonumber(spell) then 
+  if tonumber(spell) then
     local i = 0; local go = true
     while i <= 40 and go do
       i = i + 1
-      buff,_,_,count,_,_,expires,caster,_,_,spellID = UnitBuff(target, i)
+      buff,_,_,count,_,_,expires,caster,_,_,spellID = _G['UnitBuff'](target, i)
       if spellID == tonumber(spell) then go = false end
     end
   else
-    buff,_,_,count,_,_,expires,caster = UnitBuff(target, spell)
+    buff,_,_,count,_,_,expires,caster = _G['UnitBuff'](target, spell)
   end
   return buff, count, expires, caster
 end
 
-PE_WalkDebuffs = function(target, spell)
+local UnitDebuff = function(target, spell)
   local debuff, count, caster, expires, spellID
-  if tonumber(spell) then 
+  if tonumber(spell) then
     local i = 0; local go = true
     while i <= 40 and go do
       i = i + 1
-      debuff,_,_,count,_,_,expires,caster,_,_,spellID = UnitDebuff(target, i)
+      debuff,_,_,count,_,_,expires,caster,_,_,spellID = _G['UnitDebuff'](target, i)
       if spellID == tonumber(spell) then go = false end
     end
   else
-    debuff,_,_,count,_,_,expires,caster = UnitDebuff(target, spell)
+    debuff,_,_,count,_,_,expires,caster = _G['UnitDebuff'](target, spell)
   end
   return debuff, count, expires, caster
 end
@@ -57,7 +57,7 @@ ProbablyEngine.condition.register("dispellable", function(target, spell)
 end)
 
 ProbablyEngine.condition.register("buff", function(target, spell)
-  local buff,_,_,caster = PE_WalkBuffs(target, spell)
+  local buff,_,_,caster = UnitBuff(target, spell)
   if not not buff and (caster == 'player' or caster == 'pet') then
     return true
   end
@@ -65,7 +65,7 @@ ProbablyEngine.condition.register("buff", function(target, spell)
 end)
 
 ProbablyEngine.condition.register("buff.count", function(target, spell)
-  local buff,count,_,caster = PE_WalkBuffs(target, spell)
+  local buff,count,_,caster = UnitBuff(target, spell)
   if not not buff and (caster == 'player' or caster == 'pet') then
     return count
   end
@@ -73,7 +73,7 @@ ProbablyEngine.condition.register("buff.count", function(target, spell)
 end)
 
 ProbablyEngine.condition.register("debuff", function(target, spell)
-  local debuff,_,_,caster = PE_WalkDebuffs(target, spell)
+  local debuff,_,_,caster = UnitDebuff(target, spell)
   if not not debuff and (caster == 'player' or caster == 'pet') then
     return true
   end
@@ -81,7 +81,7 @@ ProbablyEngine.condition.register("debuff", function(target, spell)
 end)
 
 ProbablyEngine.condition.register("debuff.count", function(target, spell)
-  local debuff,count,_,caster = PE_WalkDebuffs(target, spell)
+  local debuff,count,_,caster = UnitDebuff(target, spell)
   if not not debuff and (caster == 'player' or caster == 'pet') then
     return count
   end
@@ -89,7 +89,7 @@ ProbablyEngine.condition.register("debuff.count", function(target, spell)
 end)
 
 ProbablyEngine.condition.register("debuff.duration", function(target, spell)
-  local debuff,_,expires,caster = PE_WalkDebuffs(target, spell)
+  local debuff,_,expires,caster = UnitDebuff(target, spell)
   if not not debuff and (caster == 'player' or caster == 'pet') then
     return (expires - (GetTime()-(ProbablyEngine.lag/1000)))
   end
@@ -97,7 +97,7 @@ ProbablyEngine.condition.register("debuff.duration", function(target, spell)
 end)
 
 ProbablyEngine.condition.register("buff.duration", function(target, spell)
-  local buff,_,expires,caster = PE_WalkBuffs(target, spell)
+  local buff,_,expires,caster = UnitBuff(target, spell)
   if not not buff and (caster == 'player' or caster == 'pet') then
     return (expires - (GetTime()-(ProbablyEngine.lag/1000)))
   end
