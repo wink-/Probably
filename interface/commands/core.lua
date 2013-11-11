@@ -32,3 +32,7 @@ end)
 ProbablyEngine.command.register_handler({'al', 'log', 'actionlog'}, function()
   PE_ActionLog:Show()
 end)
+
+ProbablyEngine.command.register_handler({'lag', 'cycletime'}, function()
+  PE_CycleLag:Show()
+end)

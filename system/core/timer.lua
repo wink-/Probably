@@ -3,7 +3,7 @@
 
 ProbablyEngine.timer = {
   interval = 0.01,
-  timers = {}
+  timers = {},
 }
 
 -- create the frame to register timers
@@ -31,6 +31,7 @@ ProbablyEngine.timer.handle = function (self, elapsed)
       struct.last = 0
     end
   end
+  PE_CycleLag.text:SetText(math.floor(elapsed * 1000) .. 'ms')
 end
 
 ProbablyEngine.timer.updatePeriod = function(module, peroid)
@@ -39,4 +40,3 @@ end
 
 -- register our handler
 ProbablyEngine.timer.timerFrame:SetScript("OnUpdate", ProbablyEngine.timer.handle)
-
