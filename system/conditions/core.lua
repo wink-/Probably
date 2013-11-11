@@ -451,11 +451,11 @@ ProbablyEngine.condition.register("spell.cooldown", function(target, spell)
 end)
 
 ProbablyEngine.condition.register("spell.usable", function(target, spell)
-  return not not IsUsableSpell(spell)
+  return (IsUsableSpell(spell) ~= nil)
 end)
 
 ProbablyEngine.condition.register("spell.exists", function(target, spell)
-  return not not IsPlayerSpell(GetSpellID(spell))
+  return IsPlayerSpell(GetSpellID(spell))
 end)
 
 ProbablyEngine.condition.register("spell.casted", function(target, spell)
