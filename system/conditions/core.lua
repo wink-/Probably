@@ -139,6 +139,10 @@ ProbablyEngine.condition.register("timetomax", function(target, spell)
   return (max - curr) * (1.0 / regen)
 end)
 
+ProbablyEngine.condition.register("tomax", function(target, spell)
+  return ProbablyEngine.condition["timetomax"](toggle)
+end)
+
 ProbablyEngine.condition.register("rage", function(target, spell)
   return UnitPower(target, SPELL_POWER_RAGE)
 end)
@@ -214,8 +218,8 @@ ProbablyEngine.condition.register("modifier.player", function()
   return UnitIsPlayer("target") == 1
 end)
 
-ProbablyEngine.condition.register("modifier.boss", function()
-  return UnitClassification("target") == "worldboss"
+ProbablyEngine.condition.register("boss", function(target)
+  return UnitClassification(target) == "worldboss"
 end)
 
 ProbablyEngine.condition.register("toggle", function(toggle, spell)
@@ -342,7 +346,6 @@ ProbablyEngine.condition.register("runes.depleted", function(target, spell)
             end
         end
     end
-
     return false
 end)
 
@@ -398,7 +401,7 @@ ProbablyEngine.condition.register("modifier.last", function(target, spell)
 end)
 
 ProbablyEngine.condition.register("modifier.enemies", function()
-  return ProbablyEngine.module.world.count
+  return select('#', ProbablyEngine.module.combatTracker.enemy)
 end)
 
 ProbablyEngine.condition.register("enchant.mainhand", function()
