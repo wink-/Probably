@@ -3,6 +3,7 @@
 
 ProbablyEngine.cycle = function(skip_verify)
 
+  local turbo = ProbablyEngine.config.data['pe_turbo']
   local cycle =
     IsMounted() ~= 1
     and ProbablyEngine.module.player.combat
@@ -65,6 +66,8 @@ ProbablyEngine.cycle = function(skip_verify)
           })
         end
       end
+
+      if turbo then ProbablyEngine.module.player.cast(spell) end
 
     end
   end
