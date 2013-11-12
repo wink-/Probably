@@ -67,8 +67,6 @@ ProbablyEngine.cycle = function(skip_verify)
         end
       end
 
-      if turbo then ProbablyEngine.module.player.cast(spell) end
-
     end
   end
 

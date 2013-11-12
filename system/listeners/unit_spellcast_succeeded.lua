@@ -15,6 +15,6 @@ ProbablyEngine.listener.register("UNIT_SPELLCAST_SUCCEEDED", function(...)
         time = date("%H:%M:%S")
       })
     end
-    if not turbo then ProbablyEngine.module.player.cast(spell) end
+    ProbablyEngine.module.player.cast(spell)
   end
 end)

@@ -200,7 +200,6 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
         return false
       else
         if ProbablyEngine.parser.can_cast(event, target) then
-          ProbablyEngine.parser.lastCast = event
           return event, target
         end
       end
