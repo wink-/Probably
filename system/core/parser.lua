@@ -36,6 +36,18 @@ ProbablyEngine.parser = {
 }
 
 ProbablyEngine.parser.can_cast =  function(spell, unit)
+
+  -- Turbo Mode Engage
+  local turbo = ProbablyEngine.config.data['pe_turbo']
+  local castEnds = select(6, UnitCastingInfo("player"))
+  if castEnds then
+    local timeNow = GetTime()
+    local canCancel = ((castEnds / 1000) - timeNow) * 1000
+    if canCancel < ProbablyEngine.lag then
+      SpellStopCasting()
+    end
+  end
+
   -- Credits to iLulz (JPS) for this function
   if spell == nil then return false end
   if unit == "ground" then unit = nil end
@@ -51,7 +63,7 @@ ProbablyEngine.parser.can_cast =  function(spell, unit)
   if UnitIsDeadOrGhost(unit) then return false end
   if SpellHasRange(spell) == 1 and IsSpellInRange(spell, unit) == 0 then return false end
   if select(2, GetSpellCooldown(spell)) > 1 then return false end
-  if ProbablyEngine.module.player.casting == true then return false end
+  if ProbablyEngine.module.player.casting == true and turbo == false then return false end
   -- handle Surging Mists manually :(
   if spellId == 116694 or spellId == 124682 then return true end
   if UnitChannelInfo("player") == nil then return true else return false end

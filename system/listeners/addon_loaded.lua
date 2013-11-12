@@ -19,4 +19,7 @@ ProbablyEngine.listener.register("ADDON_LOADED", function(...)
   -- update tracker state
   UnitTracker.toggle(true)
 
+  -- Turbo
+  ProbablyEngine.config.read('pe_turbo', false)
+
 end)

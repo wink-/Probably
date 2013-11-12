@@ -36,3 +36,15 @@ end)
 ProbablyEngine.command.register_handler({'lag', 'cycletime'}, function()
   PE_CycleLag:Show()
 end)
+
+ProbablyEngine.command.register_handler({'turbo', 'godmode'}, function()
+  ProbablyEngine.config.toggle('pe_turbo')
+  local state = ProbablyEngine.config.data['pe_turbo']
+  if state then
+    ProbablyEngine.print('Turbo Mode Enabled!')
+    SetCVar('maxSpellStartRecoveryOffset', 1)
+    SetCVar('reducedLagTolerance', 1)
+  else
+    ProbablyEngine.print('Turbo Mode Disabled.')
+  end
+end)
