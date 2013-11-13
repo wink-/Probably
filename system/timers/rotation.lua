@@ -3,6 +3,7 @@
 
 ProbablyEngine.cycle = function(skip_verify)
 
+  local turbo = ProbablyEngine.config.data['pe_turbo']
   local cycle =
     IsMounted() ~= 1
     and ProbablyEngine.module.player.combat
@@ -10,7 +11,7 @@ ProbablyEngine.cycle = function(skip_verify)
     and ProbablyEngine.module.player.specId
 
   if cycle or skip_verify then
-
+    local stickyValues = GetCVar("deselectOnClick")
     local spell, target = ''
 
     --[[ Disabled for now...
@@ -67,8 +68,8 @@ ProbablyEngine.cycle = function(skip_verify)
       end
 
     end
+    SetCVar("deselectOnClick", stickyValue)
   end
-
 end
 
 ProbablyEngine.timer.register("rotation", function()
@@ -84,6 +85,7 @@ ProbablyEngine.timer.register("oocrotation", function()
     and ProbablyEngine.rotation.activeOOCRotation ~= false
 
   if cycle then
+    local stickyValues = GetCVar("deselectOnClick")
     local spell, target = ''
     spell, target = ProbablyEngine.parser.table(ProbablyEngine.rotation.activeOOCRotation, 'player')
     if target == nil then target = 'player' end
@@ -122,5 +124,6 @@ ProbablyEngine.timer.register("oocrotation", function()
         end
       end
     end
+    SetCVar("deselectOnClick", stickyValue)
   end
 end, 500)

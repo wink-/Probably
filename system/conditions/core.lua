@@ -19,14 +19,19 @@ GetSpellName = function(spell)
   return spell
 end
 
-local UnitBuff = function(target, spell)
+local UnitBuff = function(target, spell, owner)
   local buff, count, caster, expires, spellID
   if tonumber(spell) then
     local i = 0; local go = true
     while i <= 40 and go do
       i = i + 1
       buff,_,_,count,_,_,expires,caster,_,_,spellID = _G['UnitBuff'](target, i)
-      if spellID == tonumber(spell) then go = false end
+      if not owner then
+        if spellID == tonumber(spell) and caster == "player" then go = false end
+      end
+      if owner == "any" then
+        if spellID == tonumber(spell) then go = false end
+      end
     end
   else
     buff,_,_,count,_,_,expires,caster = _G['UnitBuff'](target, spell)
@@ -34,14 +39,19 @@ local UnitBuff = function(target, spell)
   return buff, count, expires, caster
 end
 
-local UnitDebuff = function(target, spell)
+local UnitDebuff = function(target, spell, owner)
   local debuff, count, caster, expires, spellID
   if tonumber(spell) then
     local i = 0; local go = true
     while i <= 40 and go do
       i = i + 1
       debuff,_,_,count,_,_,expires,caster,_,_,spellID = _G['UnitDebuff'](target, i)
-      if spellID == tonumber(spell) then go = false end
+      if not owner then
+        if spellID == tonumber(spell) and caster == "player" then go = false end
+      end
+      if owner == "any" then
+        if spellID == tonumber(spell) then go = false end
+      end
     end
   else
     debuff,_,_,count,_,_,expires,caster = _G['UnitDebuff'](target, spell)
@@ -64,6 +74,14 @@ ProbablyEngine.condition.register("buff", function(target, spell)
   return false
 end)
 
+ProbablyEngine.condition.register("buff.any", function(target, spell)
+  local buff,_,_,caster = UnitBuff(target, spell, "any")
+  if not not buff then
+    return true
+  end
+  return false
+end)
+
 ProbablyEngine.condition.register("buff.count", function(target, spell)
   local buff,count,_,caster = UnitBuff(target, spell)
   if not not buff and (caster == 'player' or caster == 'pet') then
@@ -75,6 +93,14 @@ end)
 ProbablyEngine.condition.register("debuff", function(target, spell)
   local debuff,_,_,caster = UnitDebuff(target, spell)
   if not not debuff and (caster == 'player' or caster == 'pet') then
+    return true
+  end
+  return false
+end)
+
+ProbablyEngine.condition.register("debuff.any", function(target, spell)
+  local debuff,_,_,caster = UnitDebuff(target, spell, "any")
+  if not not debuff then
     return true
   end
   return false
@@ -137,6 +163,10 @@ ProbablyEngine.condition.register("timetomax", function(target, spell)
   local curr = UnitPower(target)
   local regen = select(2, GetPowerRegen(target))
   return (max - curr) * (1.0 / regen)
+end)
+
+ProbablyEngine.condition.register("tomax", function(target, spell)
+  return ProbablyEngine.condition["timetomax"](toggle)
 end)
 
 ProbablyEngine.condition.register("rage", function(target, spell)
@@ -214,8 +244,8 @@ ProbablyEngine.condition.register("modifier.player", function()
   return UnitIsPlayer("target") == 1
 end)
 
-ProbablyEngine.condition.register("modifier.boss", function()
-  return UnitClassification("target") == "worldboss"
+ProbablyEngine.condition.register("boss", function(target)
+  return UnitClassification(target) == "worldboss"
 end)
 
 ProbablyEngine.condition.register("toggle", function(toggle, spell)
@@ -342,7 +372,6 @@ ProbablyEngine.condition.register("runes.depleted", function(target, spell)
             end
         end
     end
-
     return false
 end)
 
@@ -398,7 +427,7 @@ ProbablyEngine.condition.register("modifier.last", function(target, spell)
 end)
 
 ProbablyEngine.condition.register("modifier.enemies", function()
-  return ProbablyEngine.module.world.count
+  return select('#', ProbablyEngine.module.combatTracker.enemy)
 end)
 
 ProbablyEngine.condition.register("enchant.mainhand", function()
@@ -451,11 +480,11 @@ ProbablyEngine.condition.register("spell.cooldown", function(target, spell)
 end)
 
 ProbablyEngine.condition.register("spell.usable", function(target, spell)
-  return not not IsUsableSpell(spell)
+  return (IsUsableSpell(spell) ~= nil)
 end)
 
 ProbablyEngine.condition.register("spell.exists", function(target, spell)
-  return not not IsPlayerSpell(GetSpellID(spell))
+  return IsPlayerSpell(GetSpellID(spell))
 end)
 
 ProbablyEngine.condition.register("spell.casted", function(target, spell)
