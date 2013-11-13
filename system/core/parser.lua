@@ -190,8 +190,8 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
 
     if evaluation then
       if eventType == "table" then
-        local testNest = ProbablyEngine.parser.table(event, target)
-        if testNest then return testNest end
+        local tableNestSpell, tableNestTarget = ProbablyEngine.parser.table(event)
+        if tableNestSpell ~= false then return tableNestSpell, tableNestTarget end
       elseif eventType == "macro" then
         RunMacroText(string.sub(event, 2))
         return false
@@ -206,5 +206,6 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
     end
 
   end
-  spellTable = nil
+
+  return false
 end
