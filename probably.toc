@@ -6,7 +6,7 @@
 ## SavedVariables: ProbablyEngine_RotationData
 
 # external libs
-external\LibStub\LibStub.lua
+external\LibStub-1.0\LibStub.lua
 external\CallbackHandler-1.0\CallbackHandler-1.0.xml
 external\LibRangeCheck-2.0\LibRangeCheck-2.0.lua
 external\AceConsole-3.0\AceConsole-3.0.xml
@@ -17,6 +17,7 @@ external\LibDispellable-1.0\LibDispellable-1.0.lua
 
 # shebang
 probably.lua
+system\core\overloads.lua
 
 # Core System
 system\core\debug.lua
