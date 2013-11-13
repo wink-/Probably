@@ -6,9 +6,8 @@
 -- since this doesn't exist, make it!
 GetSpellID = function(spell)
   if type(spell) == "number" then return spell end
-  local _, spellId = GetSpellBookItemInfo(spell)
-  if spellId then return spellId end
-  return false
+  local match = string.match(GetSpellLink(spell) or '', 'Hspell:(%d+)|h')
+  if match then return tonumber(match) else return false end
 end
 
 -- this is also useful
