@@ -5,20 +5,6 @@ local ProbablyEngineTempTable1 = { }
 local rangeCheck = LibStub("LibRangeCheck-2.0")
 local LibDispellable = LibStub("LibDispellable-1.0")
 
-GetSpellID = function(spell)
-  if type(spell) == "number" then return spell end
-  local match = string.match(GetSpellLink(spell) or '', 'Hspell:(%d+)|h')
-  if match then return tonumber(match) else return false end
-end
-
-GetSpellName = function(spell)
-  if tonumber(spell) then
-    local spellID = tonumber(spell)
-    return GetSpellInfo(spellID)
-  end
-  return spell
-end
-
 local UnitBuff = function(target, spell)
   local buff, count, caster, expires, spellID
   if tonumber(spell) then
