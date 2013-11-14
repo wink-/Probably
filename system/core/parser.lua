@@ -35,15 +35,21 @@ ProbablyEngine.parser = {
   }
 }
 
+ProbablyEngine.turbo = {
+  modifier = 1.3
+}
+
 ProbablyEngine.parser.can_cast =  function(spell, unit)
 
   -- Turbo Mode Engage
   local turbo = ProbablyEngine.config.data['pe_turbo']
   local castEnds = select(6, UnitCastingInfo("player"))
-  if castEnds then
+  local channelEnds = select(6, UnitChannelInfo("player"))
+  if castEnds or channelEnds then
+    local endTime = castEnds or channelEnds
     local timeNow = GetTime()
-    local canCancel = ((castEnds / 1000) - timeNow) * 1000
-    if canCancel < ProbablyEngine.lag then
+    local canCancel = ((endTime / 1000) - timeNow) * 1000
+    if canCancel < (ProbablyEngine.lag*ProbablyEngine.turbo.modifier) then
       SpellStopCasting()
     end
   end

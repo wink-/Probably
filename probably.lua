@@ -5,13 +5,13 @@
 ProbablyEngine = {
   addonName = "Probably",
   addonColor = "2277dd",
-  version = "r1400",
+  version = "r1410",
   active = false,
   full = false,
   debugging = false,
   rotations = { },
   dynamicCycle = false,
-  cycleTime = 100,
+  cycleTime = 50,
   lag = 0
 }
 
