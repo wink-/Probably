@@ -465,6 +465,15 @@ ProbablyEngine.condition.register("spell.cooldown", function(target, spell)
   return 0
 end)
 
+ProbablyEngine.condition.register("spell.recharge", function(target, spell)
+  local charges, maxCharges, start, duration = GetSpellCharges(spell)
+  if not start then return false end
+  if start ~= 0 then
+    return (start + duration - GetTime())
+  end
+  return 0
+end)
+
 ProbablyEngine.condition.register("spell.usable", function(target, spell)
   return (IsUsableSpell(spell) ~= nil)
 end)
