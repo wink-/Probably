@@ -5,7 +5,7 @@ local warningSent = false
 
 ProbablyEngine.timer.register("lag", function()
   local bandwidthIn, bandwidthOut, latencyHome, latencyWorld = GetNetStats()
-  ProbablyEngine.lag = math.floor(latencyHome)
+  ProbablyEngine.lag = latencyWorld
   -- Dynamic rotation timing
   if ProbablyEngine.dynamicCycle == true then
     if ProbablyEngine.lag < 500 then
