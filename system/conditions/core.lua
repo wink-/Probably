@@ -14,8 +14,7 @@ local UnitBuff = function(target, spell, owner)
       buff,_,_,count,_,_,expires,caster,_,_,spellID = _G['UnitBuff'](target, i)
       if not owner then
         if spellID == tonumber(spell) and caster == "player" then go = false end
-      end
-      if owner == "any" then
+      elseif owner == "any" then
         if spellID == tonumber(spell) then go = false end
       end
     end
@@ -34,8 +33,7 @@ local UnitDebuff = function(target, spell, owner)
       debuff,_,_,count,_,_,expires,caster,_,_,spellID = _G['UnitDebuff'](target, i)
       if not owner then
         if spellID == tonumber(spell) and caster == "player" then go = false end
-      end
-      if owner == "any" then
+      elseif owner == "any" then
         if spellID == tonumber(spell) then go = false end
       end
     end
