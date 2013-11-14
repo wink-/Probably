@@ -35,6 +35,7 @@ ProbablyEngine.command.register('pe', function(msg, box)
     ProbablyEngine.command.handlers[command](text)
   else
     ProbablyEngine.command.print('Unknown command: ' .. command);
+    ProbablyEngine.command.handlers['help']('help')
   end
 end)
 
