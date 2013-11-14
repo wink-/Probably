@@ -1,6 +1,18 @@
 -- ProbablyEngine Rotations - https://probablyengine.com/
 -- Released under modified BSD, see attached LICENSE.
 
+
+-- Masque ?!
+local MSQ = LibStub("Masque", true)
+if MSQ then
+  local probablySkinGroup = MSQ:Group("ProbablyEngine", "Buttons")
+end
+-- ElvUI ?!
+if IsAddOnLoaded("ElvUi") then
+  local _E, _L, _DF = unpack(ElvUI)
+  ElvSkin = _E:GetModule('Skins')
+end
+
 ProbablyEngine.buttons = {
   frame = CreateFrame("Frame", "PE_Buttons", UIParent),
   buttonFrame = CreateFrame("Frame", "PE_Buttons_Container", UIParent),
@@ -55,6 +67,7 @@ ProbablyEngine.buttons.create = function(name, icon, callback, tooltipl1, toolti
   ProbablyEngine.buttons.buttons[name] = CreateFrame("CheckButton", "PE_Buttons_"..name, ProbablyEngine.buttons.buttonFrame, "ActionButtonTemplate")
   ProbablyEngine.buttons.buttons[name]:RegisterForClicks("LeftButtonUp", "RightButtonUp")
   local button = ProbablyEngine.buttons.buttons[name]
+
   button:SetPoint("TOPLEFT", ProbablyEngine.buttons.frame, "TOPLEFT",
     (
       (ProbablyEngine.buttons.size*ProbablyEngine.buttons.count)
@@ -66,13 +79,17 @@ ProbablyEngine.buttons.create = function(name, icon, callback, tooltipl1, toolti
   button:SetWidth(ProbablyEngine.buttons.size)
   button:SetHeight(ProbablyEngine.buttons.size)
 
+  -- theme it, Masque ?
+  if probablySkinGroup then probablySkinGroup:AddButton(button) end
+  -- theme it, ElvUI ?
+  --if ElvSkin then ElvSkin:HandleItemButton(button, true) end
+
   if icon == nil then
-    _G[button:GetName().."Icon"]:SetTexture('Interface\\ICONS\\INV_Misc_QuestionMark')
+    button.icon:SetTexture('Interface\\ICONS\\INV_Misc_QuestionMark')
   else
-    _G[button:GetName().."Icon"]:SetTexture(icon)
+    button.icon:SetTexture(icon)
   end
 
-  button:SetScript("OnClick", callback)
   button:SetScript("OnClick", callback)
 
   if tooltipl1 ~= nil then
