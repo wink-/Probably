@@ -11,7 +11,7 @@ ProbablyEngine.cycle = function(skip_verify)
     and ProbablyEngine.module.player.specId
 
   if cycle or skip_verify then
-    local stickyValues = GetCVar("deselectOnClick")
+    local stickyValue = GetCVar("deselectOnClick")
     local spell, target = ''
 
     --[[ Disabled for now...
@@ -85,7 +85,7 @@ ProbablyEngine.timer.register("oocrotation", function()
     and ProbablyEngine.rotation.activeOOCRotation ~= false
 
   if cycle then
-    local stickyValues = GetCVar("deselectOnClick")
+    local stickyValue = GetCVar("deselectOnClick")
     local spell, target = ''
     spell, target = ProbablyEngine.parser.table(ProbablyEngine.rotation.activeOOCRotation, 'player')
     if target == nil then target = 'player' end
