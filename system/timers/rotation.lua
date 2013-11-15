@@ -48,7 +48,7 @@ ProbablyEngine.cycle = function(skip_verify)
         CameraOrSelectOrMoveStart(1) -- this is unlocked
         CameraOrSelectOrMoveStop(1) -- this isn't unlocked
         SetCVar("deselectOnClick", "1")
-        CastSpellByName(GetSpellName(name))
+        CastSpellByName(GetSpellName(name), "target")
         if icon then
           table.insert(ProbablyEngine.actionLog.log, 1, {
             event = 'Ground Cast',
