@@ -50,20 +50,12 @@ ProbablyEngine.cycle = function(skip_verify)
         SetCVar("deselectOnClick", "1")
         CastSpellByName(GetSpellName(name), "target")
         if icon then
-          table.insert(ProbablyEngine.actionLog.log, 1, {
-            event = 'Ground Cast',
-            description = '|T' .. icon .. ':-1:-1:0:0|t '..spell..'',
-            time = date("%H:%M:%S")
-          })
+          ProbablyEngine.actionLog.insert('Ground Cast', GetSpellName(name), icon)
         end
       else
         CastSpellByName(GetSpellName(name), target)
         if icon then
-          table.insert(ProbablyEngine.actionLog.log, 1, {
-            event = 'Spell Cast',
-            description = '|T' .. icon .. ':-1:-1:0:0|t ' .. spell..'',
-            time = date("%H:%M:%S")
-          })
+          ProbablyEngine.actionLog.insert('Spell Cast', GetSpellName(name), icon)
         end
       end
 
@@ -106,21 +98,11 @@ ProbablyEngine.timer.register("oocrotation", function()
         CameraOrSelectOrMoveStop(1) -- this isn't unlocked
         SetCVar("deselectOnClick", "1")
         CastSpellByName(GetSpellName(name))
-        if icon then
-          table.insert(ProbablyEngine.actionLog.log, 1, {
-            event = 'Ground Cast',
-            description = '|T' .. icon .. ':-1:-1:0:0|t '..spell..'',
-            time = date("%H:%M:%S")
-          })
-        end
+        ProbablyEngine.actionLog.insert('Ground Cast', GetSpellName(name), icon)
       else
         CastSpellByName(GetSpellName(name), target)
         if icon then
-          table.insert(ProbablyEngine.actionLog.log, 1, {
-            event = 'Spell Cast Succeed',
-            description = '|T' .. icon .. ':-1:-1:0:0|t '..spell..'',
-            time = date("%H:%M:%S")
-          })
+          ProbablyEngine.actionLog.insert('Spell Cast', GetSpellName(name), icon)
         end
       end
     end

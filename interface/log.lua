@@ -170,6 +170,25 @@ for i = 1, (log_items) do
 end
 
 ProbablyEngine.actionLog = { }
+
+ProbablyEngine.actionLog.insert = function(type, spell, spellIcon)
+  if spellIcon then
+    if ProbablyEngine.actionLog.log[1] and ProbablyEngine.actionLog.log[1]['description'] == spell then
+      ProbablyEngine.actionLog.log[1]['count'] = ProbablyEngine.actionLog.log[1]['count'] + 1
+    else
+      table.insert(ProbablyEngine.actionLog.log, 1, {
+        event = type,
+        icon = spellIcon,
+        description = spell,
+        count = 1,
+        time = date("%H:%M:%S")
+      })
+    end
+  end
+end
+
+
+
 ProbablyEngine.actionLog.log = { }
 
 ProbablyEngine.timer.register("updateActionLog", function()
@@ -181,9 +200,10 @@ ProbablyEngine.timer.register("updateActionLog", function()
   for i = 1+delta, log_items + delta do
     offset = offset + 1
     if ProbablyEngine.actionLog.log[i] ~= nil then
-      ActionLogItem[offset].itemA:SetText(ProbablyEngine.actionLog.log[i].event)
-      ActionLogItem[offset].itemB:SetText(ProbablyEngine.actionLog.log[i].description)
-      ActionLogItem[offset].itemC:SetText(ProbablyEngine.actionLog.log[i].time)
+      local item = ProbablyEngine.actionLog.log[i]
+      ActionLogItem[offset].itemA:SetText(item.event)
+      ActionLogItem[offset].itemB:SetText('x' .. item.count .. ' ' .. '|T' .. item.icon .. ':-1:-1:0:0|t' .. item.description)
+      ActionLogItem[offset].itemC:SetText(item.time)
     end
   end
 
