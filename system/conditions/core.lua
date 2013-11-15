@@ -411,7 +411,9 @@ ProbablyEngine.condition.register("modifier.last", function(target, spell)
 end)
 
 ProbablyEngine.condition.register("modifier.enemies", function()
-  return select('#', ProbablyEngine.module.combatTracker.enemy)
+  local count = 0
+  for _ in pairs(ProbablyEngine.module.combatTracker.enemy) do count = count + 1 end
+  return count
 end)
 
 ProbablyEngine.condition.register("enchant.mainhand", function()
