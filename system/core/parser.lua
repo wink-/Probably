@@ -127,6 +127,8 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
         eventType = "macro"
       elseif string.sub(event, 1, 1) == '#' then
         eventType = "item"
+      elseif event == "pause" then
+        return false
       end
     end
 
