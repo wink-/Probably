@@ -79,6 +79,7 @@ system\listeners\unit_spellcast_channel_stop.lua
 system\listeners\unit_spellcast_start.lua
 system\listeners\unit_spellcast_stop.lua
 system\listeners\unit_spellcast_succeeded.lua
+system\listeners\unit_spellcast_sent.lua
 system\listeners\addon_action_blocked.lua
 system\listeners\addon_action_forbidden.lua
 system\listeners\player_regen_enabled.lua
