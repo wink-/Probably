@@ -6,7 +6,7 @@ ProbablyEngine.buttons = {
   frame = CreateFrame("Frame", "PE_Buttons", UIParent),
   buttonFrame = CreateFrame("Frame", "PE_Buttons_Container", UIParent),
   buttons = { },
-  size = 32,
+  size = 36,
   scale = 1,
   padding = 6,
   count = 0,
@@ -14,8 +14,9 @@ ProbablyEngine.buttons = {
 
 -- Masque ?!
 local MSQ = LibStub("Masque", true)
+local probablySkinGroup
 if MSQ then
-  local probablySkinGroup = MSQ:Group("ProbablyEngine", "Buttons")
+  probablySkinGroup = MSQ:Group("ProbablyEngine", "Buttons")
 end
 -- ElvUI ?!
 local E, L, V, P, G
@@ -23,6 +24,7 @@ if IsAddOnLoaded("ElvUI") then
   E, L, V, P, G = unpack(ElvUI)
   ElvSkin = E:GetModule('ActionBars')
   ProbablyEngine.buttons.padding = 2
+  ProbablyEngine.buttons.size = 32
 end
 
 ProbablyEngine.buttons.frame:SetPoint("CENTER", UIParent)
