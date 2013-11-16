@@ -30,11 +30,7 @@ hooksecurefunc("UseAction", function(...)
       local type, id, subType, spellID = GetActionInfo(select(1,...))
       if type == "spell" then
         local name,_,_,_,_,_,_,_,_ = ProbablyEngine.gsi.call(id)
-        if ProbablyEngine.parser.can_cast_queue(name) then
-          ProbablyEngine.module.queue.add_spell(name)
-        end
-      elseif type == "macro" then
-        ProbablyEngine.module.queue.add_macro(id)
+        ProbablyEngine.module.queue.add_spell(name)
       end
     end
   end

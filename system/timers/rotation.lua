@@ -12,24 +12,23 @@ ProbablyEngine.cycle = function(skip_verify)
 
   if cycle or skip_verify then
     local stickyValue = GetCVar("deselectOnClick")
-    local spell, target = ''
+    local spell, target = false
 
-    --[[ Disabled for now...
+
     local queue = ProbablyEngine.module.queue.queue
-    local macro_queue = ProbablyEngine.module.queue.macro_queue
     if queue ~= nil and ProbablyEngine.parser.can_cast(queue) then
       spell = queue
       target = 'target'
       ProbablyEngine.module.queue.queue = nil
-    elseif macro_queue ~= nil then
-      RunMacro(macro_queue)
-      ProbablyEngine.module.queue.macro_queue = nil
-      return
+    elseif ProbablyEngine.parser.lastCast == queue then
+      ProbablyEngine.module.queue.queue = nil
     else
       spell, target = ProbablyEngine.parser.table(ProbablyEngine.rotation.activeRotation)
-    end]]--
+    end
 
-    spell, target = ProbablyEngine.parser.table(ProbablyEngine.rotation.activeRotation)
+    if not spell then
+      spell, target = ProbablyEngine.parser.table(ProbablyEngine.rotation.activeRotation)
+    end
 
     if spell then
 
