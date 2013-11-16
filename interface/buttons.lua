@@ -2,26 +2,28 @@
 -- Released under modified BSD, see attached LICENSE.
 
 
+ProbablyEngine.buttons = {
+  frame = CreateFrame("Frame", "PE_Buttons", UIParent),
+  buttonFrame = CreateFrame("Frame", "PE_Buttons_Container", UIParent),
+  buttons = { },
+  size = 32,
+  scale = 1,
+  padding = 6,
+  count = 0,
+}
+
 -- Masque ?!
 local MSQ = LibStub("Masque", true)
 if MSQ then
   local probablySkinGroup = MSQ:Group("ProbablyEngine", "Buttons")
 end
 -- ElvUI ?!
-if IsAddOnLoaded("ElvUi") then
-  local _E, _L, _DF = unpack(ElvUI)
-  ElvSkin = _E:GetModule('Skins')
+local E, L, V, P, G
+if IsAddOnLoaded("ElvUI") then
+  E, L, V, P, G = unpack(ElvUI)
+  ElvSkin = E:GetModule('ActionBars')
+  ProbablyEngine.buttons.padding = 2
 end
-
-ProbablyEngine.buttons = {
-  frame = CreateFrame("Frame", "PE_Buttons", UIParent),
-  buttonFrame = CreateFrame("Frame", "PE_Buttons_Container", UIParent),
-  buttons = { },
-  size = 36,
-  scale = 1,
-  padding = 6,
-  count = 0,
-}
 
 ProbablyEngine.buttons.frame:SetPoint("CENTER", UIParent)
 ProbablyEngine.buttons.frame:SetWidth(170)
@@ -80,9 +82,14 @@ ProbablyEngine.buttons.create = function(name, icon, callback, tooltipl1, toolti
   button:SetHeight(ProbablyEngine.buttons.size)
 
   -- theme it, Masque ?
-  if probablySkinGroup then probablySkinGroup:AddButton(button) end
+  if probablySkinGroup then
+    probablySkinGroup:AddButton(button)
+  end
   -- theme it, ElvUI ?
-  --if ElvSkin then ElvSkin:HandleItemButton(button, true) end
+  if ElvSkin then
+    ElvSkin.db = E.db.actionbar
+    ElvSkin:StyleButton(button)
+  end
 
   if icon == nil then
     button.icon:SetTexture('Interface\\ICONS\\INV_Misc_QuestionMark')
