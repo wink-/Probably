@@ -127,8 +127,6 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
         eventType = "macro"
       elseif string.sub(event, 1, 1) == '#' then
         eventType = "item"
-      elseif event == "pause" then
-        return false
       end
     end
 
@@ -205,6 +203,8 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
         return false
       elseif eventType == "item" then
         UseInventoryItem(slotId)
+        return false
+      elseif event == "pause" then
         return false
       else
         if ProbablyEngine.parser.can_cast(event, target) then
