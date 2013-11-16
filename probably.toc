@@ -75,6 +75,7 @@ system\listeners\combat_log_event_unfiltered.lua
 system\listeners\group_roster_update.lua
 system\listeners\unit_health_frequent.lua
 system\listeners\unit_spellcast_channel_start.lua
+system\listeners\unit_spellcast_channel_stop.lua
 system\listeners\unit_spellcast_start.lua
 system\listeners\unit_spellcast_stop.lua
 system\listeners\unit_spellcast_succeeded.lua
