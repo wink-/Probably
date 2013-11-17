@@ -4,7 +4,9 @@
 ProbablyEngine.module.register("player", {
   cast_cache = { },
   behind = false,
-  behindTime = 0
+  behindTime = 0,
+  infront = true,
+  infrontTime = 0,
 })
 
 ProbablyEngine.module.player.cast = function(spell)

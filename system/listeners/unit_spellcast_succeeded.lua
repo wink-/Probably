@@ -13,5 +13,6 @@ ProbablyEngine.listener.register("UNIT_SPELLCAST_SUCCEEDED", function(...)
     end
     ProbablyEngine.actionLog.insert('Spell Cast Succeed', name, icon)
     ProbablyEngine.module.player.cast(spell)
+    ProbablyEngine.module.player.infront = true
   end
 end)

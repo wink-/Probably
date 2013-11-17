@@ -6,5 +6,8 @@ ProbablyEngine.listener.register("UI_ERROR_MESSAGE", function(...)
   if error == SPELL_FAILED_NOT_BEHIND then
     ProbablyEngine.module.player.behind = false
     ProbablyEngine.module.player.behindTime = time()
+  elseif error == /dump SPELL_FAILED_UNIT_NOT_INFRONT then
+    ProbablyEngine.module.player.infront = false
+    ProbablyEngine.module.player.infrontTime = time()
   end
 end)

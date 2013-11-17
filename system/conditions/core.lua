@@ -173,6 +173,10 @@ ProbablyEngine.condition.register("behind", function(target, spell)
   return ProbablyEngine.module.player.behind
 end)
 
+ProbablyEngine.condition.register("infront", function(target, spell)
+  return ProbablyEngine.module.player.infront
+end)
+
 ProbablyEngine.condition.register("combopoints", function()
   return GetComboPoints('player', 'target')
 end)
