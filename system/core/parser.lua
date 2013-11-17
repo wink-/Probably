@@ -123,6 +123,8 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
     local evaluation = arguments[2]
     local target = arguments[3] or fallBackTarget
     local slotId = 0
+    local itemName = ''
+    local itemId = 0
 
     if eventType == "string" then
       if string.sub(event, 1, 1) == '!' then
@@ -184,15 +186,26 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
 
     if eventType == "item" then
       local slot = string.sub(event, 2)
-      slotId = GetInventorySlotInfo(ProbablyEngine.parser.items[slot])
-      if slotId then
-        local itemStart, itemDuration, itemEnable = GetInventoryItemCooldown("player", slotId)
-        if evaluation == true and itemEnable == 1 and itemStart > 0 then
-          evaluation = false
+      if ProbablyEngine.parser.items[slot] then
+        slotId = GetInventorySlotInfo(ProbablyEngine.parser.items[slot])
+        if slotId then
+          local itemStart, itemDuration, itemEnable = GetInventoryItemCooldown("player", slotId)
+          if itemEnable == 1 or itemStart > 0 then
+            evaluation = false
+          end
         end
       else
-        -- soon my child
-        return false
+        eventType = "bagItem"
+        local item = slot
+        if not tonumber(item) then
+          item = GetItemID(item)
+        end
+        itemId = item
+        itemName = GetItemInfo(itemId)
+        local itemStart, itemDuration, itemEnable = GetItemCooldown(itemId)
+        if itemEnable == 1 and itemStart > 0 then
+          evaluation = false
+        end
       end
     end
 
@@ -205,6 +218,9 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
         return false
       elseif eventType == "item" then
         UseInventoryItem(slotId)
+        return false
+      elseif eventType == "bagItem" then
+        RunMacroText('/use ' .. itemName)
         return false
       elseif event == "pause" then
         return false

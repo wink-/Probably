@@ -18,3 +18,9 @@ GetSpellName = function(spell)
   end
   return spell
 end
+
+GetItemID = function(item)
+  if type(item) == "number" then return item end
+  local match = string.match(select(2, GetItemInfo(item)) or '', 'Hitem:(%d+):')
+  if match then return tonumber(match) else return false end
+end
