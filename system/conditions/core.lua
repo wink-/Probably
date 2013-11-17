@@ -502,6 +502,15 @@ ProbablyEngine.condition.register("spell.range", function(target, spell)
   return IsSpellInRange(GetSpellName(spell), target) == 1
 end)
 
+ProbablyEngine.condition.register("glyph", function(target, spell)
+  for i = 1, 6 do
+    if select(4, GetGlyphSocketInfo(i)) == spell then
+      return true
+    end
+  end
+  return false
+end)
+
 ProbablyEngine.condition.register("range", function(target, range)
   local minRange, maxRange = rangeCheck:GetRange(target)
   return maxRange
