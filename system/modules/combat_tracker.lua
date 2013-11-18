@@ -106,6 +106,19 @@ ProbablyEngine.module.combatTracker.damageUnit = function(guid, damage)
     if not ProbablyEngine.module.combatTracker.enemy[guid]['time'] then
       ProbablyEngine.module.combatTracker.enemy[guid]['time'] = time()
     end
+    unit = ProbablyEngine.module.combatTracker.enemy[guid]
+    if unit and unit['maxHealth'] and unit['health'] then
+      local T = unit.time
+      local N = time()
+      local M = unit.maxHealth
+      local H = unit.health
+      local S = T - N
+      local D = M - H
+      local P = D / S
+      local R = math.floor(math.abs(H / P))
+      if R > 3600 then R = 1 end
+      ProbablyEngine.module.combatTracker.enemy[guid]['ttd'] = R
+    end
   end
 end
 

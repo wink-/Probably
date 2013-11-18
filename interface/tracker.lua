@@ -233,34 +233,9 @@ ProbablyEngine.timer.register("updateCTHealthUI", function()
           CombatTableUnit[currentRow]:SetValue(percent)
 
           if displayTTD then
-            --[[
-              So this is how it works, pretty stable
-              T - N = S ( Time - Now = Seconds )
-              M - H = D ( Max HP - Current HP = Deficit )
-              D / S = P ( Deficit / Seconds = Per Second )
-              H / P = R ( Current HP / Per Second = Remaining )
-            ]]--
-            local deaht_in
-            if unit.time then
-              local T = unit.time
-              local N = time()
-              local M = unit.maxHealth
-              local H = unit.health
-              local S = T - N
-              local D = M - H
-              local P = D / S
-              local R = math.floor(math.abs(H / P))
-              if R > 3600 then R = 1 end
-              if ProbablyEngine.module.combatTracker.enemy[guid]['ttdsamples'] == nil then
-                ProbablyEngine.module.combatTracker.enemy[guid]['ttdsamples'] = 0
-                ProbablyEngine.module.combatTracker.enemy[guid]['ttdest'] = 0
-              end
-              local sampled
-              ProbablyEngine.module.combatTracker.enemy[guid]['ttdsamples'] = ProbablyEngine.module.combatTracker.enemy[guid]['ttdsamples'] + 1
-              ProbablyEngine.module.combatTracker.enemy[guid]['ttdest'] = ProbablyEngine.module.combatTracker.enemy[guid]['ttdest'] + R
-              sampled = ProbablyEngine.module.combatTracker.enemy[guid]['ttdest'] / ProbablyEngine.module.combatTracker.enemy[guid]['ttdsamples'];
-              sampled = math.floor(sampled)
-              deaht_in = string.format("%.2d:%.2d", sampled/60, sampled%60)
+            if ProbablyEngine.module.combatTracker.enemy[guid]['ttd'] then
+              seconds = ProbablyEngine.module.combatTracker.enemy[guid]['ttd']
+              deaht_in = string.format("%.2d:%.2d", seconds/60, seconds%60)
             else
               deaht_in = "Est."
             end
