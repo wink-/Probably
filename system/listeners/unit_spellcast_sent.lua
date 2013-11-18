@@ -7,6 +7,5 @@ ProbablyEngine.listener.register("UNIT_SPELLCAST_SENT", function(...)
     if ProbablyEngine.module.queue.queue == spell then
       ProbablyEngine.module.queue.queue = nil
     end
-    ProbablyEngine.parser.lastCast = spell
   end
 end)
