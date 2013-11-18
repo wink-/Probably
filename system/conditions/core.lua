@@ -523,3 +523,7 @@ end)
 ProbablyEngine.condition.register("combat", function(target, range)
   return UnitAffectingCombat(target)
 end)
+
+ProbablyEngine.condition.register("time", function(target, range)
+  return GetTime() - ProbablyEngine.module.player.combatTime
+end)
