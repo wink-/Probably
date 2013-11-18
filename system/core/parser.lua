@@ -68,6 +68,10 @@ ProbablyEngine.parser.can_cast =  function(spell, unit)
   if notEnoughMana then return false end
   if not UnitExists(unit) then return false end
   if not UnitIsVisible(unit) then return false end
+  if UnitBuff("player", GetSpellInfo(80169)) then return false end -- Eat
+  if UnitBuff("player", GetSpellInfo(87959)) then return false end -- Drink
+  if UnitBuff("player", GetSpellInfo(11392)) then return false end -- Invis
+  if UnitBuff("player", GetSpellInfo(3680)) then return false end  -- L. Invis
   if UnitIsDeadOrGhost(unit) then return false end
   if SpellHasRange(spell) == 1 and IsSpellInRange(spell, unit) == 0 then return false end
   if select(2, GetSpellCooldown(spell)) > 1 then return false end
