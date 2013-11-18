@@ -431,7 +431,7 @@ end)
 ProbablyEngine.condition.register("totem", function(target, totem)
   for index = 1, 4 do
     local _, totemName, startTime, duration = GetTotemInfo(index)
-    if totemName == totem then
+    if totemName == GetSpellName(totem) then
       return true
     end
   end
