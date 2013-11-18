@@ -21,9 +21,12 @@ ProbablyEngine.dsl.comparator = function(condition, target, condition_spell)
 
   local modify_not = false
 
-  if string.sub(target, 1, 1) == '!' then
-    target = string.sub(target, 2)
-    modify_not = true
+  -- lol fuck off line 24...
+  if target and type(target) == "string" then
+    if string.sub(target, 1, 1) == '!' then
+      target = string.sub(target, 2)
+      modify_not = true
+    end
   end
 
   if string.sub(condition, 1, 1) == '!' then
