@@ -194,7 +194,7 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
         slotId = GetInventorySlotInfo(ProbablyEngine.parser.items[slot])
         if slotId then
           local itemStart, itemDuration, itemEnable = GetInventoryItemCooldown("player", slotId)
-          if itemEnable == 1 or itemStart > 0 then
+          if itemEnable == 1 and itemStart > 0 then
             evaluation = false
           end
         end
