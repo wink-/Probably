@@ -201,10 +201,12 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
           item = GetItemID(item)
         end
         itemId = item
-        itemName = GetItemInfo(itemId)
-        local itemStart, itemDuration, itemEnable = GetItemCooldown(itemId)
-        if itemEnable == 1 and itemStart > 0 then
-          evaluation = false
+        if itemId then
+          itemName = GetItemInfo(itemId)
+          local itemStart, itemDuration, itemEnable = GetItemCooldown(itemId)
+          if itemEnable == 1 and itemStart > 0 then
+            evaluation = false
+          end
         end
       end
     end
@@ -220,7 +222,7 @@ ProbablyEngine.parser.table = function(spellTable, fallBackTarget)
         UseInventoryItem(slotId)
         return false
       elseif eventType == "bagItem" then
-        RunMacroText('/use ' .. itemName)
+        UseItemByName(itemName, target)
         return false
       elseif event == "pause" then
         return false
