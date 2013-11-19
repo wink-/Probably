@@ -431,7 +431,7 @@ end)
 ProbablyEngine.condition.register("totem", function(target, totem)
   for index = 1, 4 do
     local _, totemName, startTime, duration = GetTotemInfo(index)
-    if totemName == totem then
+    if totemName == GetSpellName(totem) then
       return true
     end
   end
@@ -522,4 +522,8 @@ end)
 
 ProbablyEngine.condition.register("combat", function(target, range)
   return UnitAffectingCombat(target)
+end)
+
+ProbablyEngine.condition.register("time", function(target, range)
+  return GetTime() - ProbablyEngine.module.player.combatTime
 end)
