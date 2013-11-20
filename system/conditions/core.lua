@@ -169,6 +169,10 @@ ProbablyEngine.condition.register("embers", function(target, spell)
   return UnitPower(target, SPELL_POWER_BURNING_EMBERS, true)
 end)
 
+ProbablyEngine.condition.register("soulshards", function(target, spell)
+  return UnitPower(target, SPELL_POWER_SOUL_SHARDS)
+end)
+
 ProbablyEngine.condition.register("behind", function(target, spell)
   return ProbablyEngine.module.player.behind
 end)
@@ -186,6 +190,10 @@ ProbablyEngine.condition.register("alive", function(target, spell)
     return true
   end
   return false
+end)
+
+ProbablyEngine.condition.register("target", function(target, spell)
+  return ( UnitGUID(target .. "target") == UnitGUID(spell) )
 end)
 
 ProbablyEngine.condition.register("exists", function(target)
@@ -500,6 +508,15 @@ end)
 
 ProbablyEngine.condition.register("spell.range", function(target, spell)
   return IsSpellInRange(GetSpellName(spell), target) == 1
+end)
+
+
+ProbablyEngine.condition.register("friend", function(target, spell)
+  return ( UnitIsFriend("player", target) == 1 )
+end)
+
+ProbablyEngine.condition.register("enemy", function(target, spell)
+  return ( UnitIsEnemy("player", target) == 1 )
 end)
 
 ProbablyEngine.condition.register("glyph", function(target, spell)
