@@ -45,9 +45,9 @@ ProbablyEngine.cycle = function(skip_verify)
       if target == "ground" then
         SetCVar("deselectOnClick", "0")
         CameraOrSelectOrMoveStart(1) -- this is unlocked
+        CastSpellByName(GetSpellName(name), "target")
         CameraOrSelectOrMoveStop(1) -- this isn't unlocked
         SetCVar("deselectOnClick", "1")
-        CastSpellByName(GetSpellName(name), "target")
         if icon then
           ProbablyEngine.actionLog.insert('Ground Cast', GetSpellName(name), icon)
         end
@@ -94,10 +94,12 @@ ProbablyEngine.timer.register("oocrotation", function()
       if target == "ground" then
         SetCVar("deselectOnClick", "0")
         CameraOrSelectOrMoveStart(1) -- this is unlocked
+        CastSpellByName(GetSpellName(name), "target")
         CameraOrSelectOrMoveStop(1) -- this isn't unlocked
         SetCVar("deselectOnClick", "1")
-        CastSpellByName(GetSpellName(name))
-        ProbablyEngine.actionLog.insert('Ground Cast', GetSpellName(name), icon)
+        if icon then
+          ProbablyEngine.actionLog.insert('Ground Cast', GetSpellName(name), icon)
+        end
       else
         CastSpellByName(GetSpellName(name), target)
         if icon then
