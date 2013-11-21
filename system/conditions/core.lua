@@ -512,11 +512,11 @@ end)
 
 
 ProbablyEngine.condition.register("friend", function(target, spell)
-  return ( UnitIsFriend("player", target) == 1 )
+  return ( UnitCanAttack("player", target) ~= 1 )
 end)
 
 ProbablyEngine.condition.register("enemy", function(target, spell)
-  return ( UnitIsEnemy("player", target) == 1 )
+  return ( UnitCanAttack("player", target) == 1 )
 end)
 
 ProbablyEngine.condition.register("glyph", function(target, spell)
