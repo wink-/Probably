@@ -20,7 +20,7 @@ ProbablyEngine.rotation.register(252, {
   { "Outbreak", "!target.debuff(Frost Fever)" },
   { "Icy Touch", "target.debuff(Frost Fever).duration < 4" },
   { "Plague Strike", "target.debuff(Blood Plague).duration < 4" },
-  { "Death and Decay", "modifier.shift" },
+  { "Death and Decay", "modifier.shift", "ground" },
   { "Soul Reaper", "target.health < 35" },
   { "Dark Transformation" },
   { "Death Coil", "player.buff(Sudden Doom)" },
