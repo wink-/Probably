@@ -60,12 +60,16 @@ ProbablyEngine.parser.can_cast =  function(spell, unit)
   if spell == nil then return false end
   if unit == "ground" then unit = nil end
   if unit == nil then unit = "target" end
+  local skillType, spellGlobalId = GetSpellBookItemInfo(spell)
   local spellId = GetSpellID(spell)
-  if not spellId then return false end
+  if not spellId and not spellGlobalId then
+    return false
+  elseif not spellId and spellGlobalId then
+    spellId = spellGLobalId
+  end
   local name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange = ProbablyEngine.gsi.call(spellId)
-  local skillType, spellId = GetSpellBookItemInfo(spell)
   local isUsable, notEnoughMana = IsUsableSpell(spell)
-  local isPlayerSpell = IsPlayerSpell(GetSpellID(spell))
+  local isPlayerSpell = IsPlayerSpell(spellId)
 
   if not isPlayerSpell then return false end
   if not isUsable then return false end
