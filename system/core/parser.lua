@@ -65,7 +65,7 @@ ProbablyEngine.parser.can_cast =  function(spell, unit)
   if not spellId and not spellGlobalId then
     return false
   elseif not spellId and spellGlobalId then
-    spellId = spellGLobalId
+    spellId = spellGlobalId
   end
   local name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange = ProbablyEngine.gsi.call(spellId)
   local isUsable, notEnoughMana = IsUsableSpell(spell)
