@@ -58,8 +58,8 @@ ProbablyEngine.parser.can_cast =  function(spell, unit)
 
   -- Credits to iLulz (JPS) for this function
   if spell == nil then return false end
-  if unit == "ground" then unit = nil end
   if unit == nil then unit = "target" end
+  if unit == "ground" then unit = nil end
   local skillType, spellGlobalId = GetSpellBookItemInfo(spell)
   local spellId = GetSpellID(spell)
   if not spellId and not spellGlobalId then
@@ -69,19 +69,24 @@ ProbablyEngine.parser.can_cast =  function(spell, unit)
   end
   local name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange = ProbablyEngine.gsi.call(spellId)
   local isUsable, notEnoughMana = IsUsableSpell(spell)
+  local isSpellKnown = IsSpellKnown(spellId)
   local isPlayerSpell = IsPlayerSpell(spellId)
-
-  if not isPlayerSpell then return false end
+  if not isSpellKnown and not isPlayerSpell then
+    if not IsSpellKnown(spellId, 1) then return false end
+  end
   if not isUsable then return false end
   if notEnoughMana then return false end
-  if not UnitExists(unit) then return false end
-  if not UnitIsVisible(unit) then return false end
+  if unit then
+    if not UnitExists(unit) then return false end
+    if not UnitIsVisible(unit) then return false end
+    if UnitIsDeadOrGhost(unit) then return false end
+    if SpellHasRange(spell) == 1 and IsSpellInRange(spell, unit) == 0 then return false end
+  end
   if UnitBuff("player", GetSpellInfo(80169)) then return false end -- Eat
   if UnitBuff("player", GetSpellInfo(87959)) then return false end -- Drink
   if UnitBuff("player", GetSpellInfo(11392)) then return false end -- Invis
   if UnitBuff("player", GetSpellInfo(3680)) then return false end  -- L. Invis
-  if UnitIsDeadOrGhost(unit) then return false end
-  if SpellHasRange(spell) == 1 and IsSpellInRange(spell, unit) == 0 then return false end
+
   if select(2, GetSpellCooldown(spell)) > 1 then return false end
   if ProbablyEngine.module.player.casting == true and turbo == false then return false end
   -- handle Surging Mists manually :(
