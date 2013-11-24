@@ -45,14 +45,14 @@ ProbablyEngine.cycle = function(skip_verify)
       if target == "ground" then
         SetCVar("deselectOnClick", "0")
         CameraOrSelectOrMoveStart(1) -- this is unlocked
-        CastSpellByName(GetSpellName(name), nil)
+        CastSpellByName(GetSpellName(name), "target")
         CameraOrSelectOrMoveStop(1) -- this isn't unlocked
         SetCVar("deselectOnClick", "1")
         if icon then
           ProbablyEngine.actionLog.insert('Ground Cast', GetSpellName(name), icon)
         end
       else
-        CastSpellByName(GetSpellName(name), target)
+        CastSpellByName(GetSpellName(name), target or "target")
         if icon then
           ProbablyEngine.actionLog.insert('Spell Cast', GetSpellName(name), icon)
         end
@@ -79,6 +79,7 @@ ProbablyEngine.timer.register("oocrotation", function()
     local stickyValue = GetCVar("deselectOnClick")
     local spell, target = ''
     spell, target = ProbablyEngine.parser.table(ProbablyEngine.rotation.activeOOCRotation, 'player')
+
     if target == nil then target = 'player' end
     if spell then
       local name, _, icon, _, _, _, _, _, _ = ProbablyEngine.gsi.call(spell)
@@ -94,7 +95,7 @@ ProbablyEngine.timer.register("oocrotation", function()
       if target == "ground" then
         SetCVar("deselectOnClick", "0")
         CameraOrSelectOrMoveStart(1) -- this is unlocked
-        CastSpellByName(GetSpellName(name), nil)
+        CastSpellByName(GetSpellName(name), target or "target")
         CameraOrSelectOrMoveStop(1) -- this isn't unlocked
         SetCVar("deselectOnClick", "1")
         if icon then
@@ -109,4 +110,4 @@ ProbablyEngine.timer.register("oocrotation", function()
     end
     SetCVar("deselectOnClick", stickyValue)
   end
-end, 500)
+end, 100)
