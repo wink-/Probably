@@ -64,7 +64,7 @@ ProbablyEngine.rotation.register(66, {
     -- DPS Rotation
     { "Hammer of the Righteous", "!target.debuff(Weakened Blows)" },
     { "Avenger's Shield", "player.buff(Grand Crusader)" },
-    { "Consecration" },
+    { "Consecration", "target.range < 9" },
     { "Holy Wrath" },
     { "Hammer of Wrath" },
     { "Hammer of the Righteous", "modifier.multitarget" },
