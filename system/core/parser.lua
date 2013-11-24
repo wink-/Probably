@@ -67,13 +67,22 @@ ProbablyEngine.parser.can_cast =  function(spell, unit)
   elseif not spellId and spellGlobalId then
     spellId = spellGlobalId
   end
+
   local name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange = ProbablyEngine.gsi.call(spellId)
   local isUsable, notEnoughMana = IsUsableSpell(spell)
-  local isSpellKnown = IsSpellKnown(spellId)
-  local isPlayerSpell = IsPlayerSpell(spellId)
-  if not isSpellKnown and not isPlayerSpell then
-    if not IsSpellKnown(spellId, 1) then return false end
+
+  -- Savage Roar is broken as fuuuuuck
+  if spellId ~= 127538 then
+    local isSpellKnown = IsSpellKnown(spellId)
+    local isPlayerSpell = IsPlayerSpell(spellId)
+
+    if not isSpellKnown and not isPlayerSpell then
+      if not IsSpellKnown(spellId) then return false end
+    end
   end
+
+
+
   if not isUsable then return false end
   if notEnoughMana then return false end
   if unit then
