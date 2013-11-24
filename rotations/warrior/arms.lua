@@ -2,7 +2,7 @@
 ProbablyEngine.rotation.register(71, {
 
   -- Buffs
-  { "Berserker Rage" },
+  { "Berserker Rage", "!player.buff(Enrage)" },
 
   -- Survival
   { "Rallying Cry", {
@@ -10,11 +10,11 @@ ProbablyEngine.rotation.register(71, {
   }},
 
   { "Shield Wall", {
-    "player.health < 10"
+    "player.health < 40"
   }},
 
   { "Die by the Sword", {
-    "player.health < 40",
+    "player.health < 60",
   }},
 
   { "Hamstring", {
@@ -22,8 +22,8 @@ ProbablyEngine.rotation.register(71, {
     "modifier.player"
   }},
 
-  { "Impending Victory" },
-  { "Victory Rush" },
+  { "Impending Victory", "player.health < 80" },
+  { "Victory Rush", "player.health < 80" },
 
   -- Kicks
   { "Pummel", "modifier.interrupts" },
@@ -45,9 +45,12 @@ ProbablyEngine.rotation.register(71, {
   { "Dragon Roar", "modifier.cooldowns" },
 
   -- Rotation
+  { "Storm Bolt" },
   { "Colossus Smash",
     "!target.debuff(Colossus Smash)"},
-  { "Execute", "!target.debuff(Colossus Smash)" },
+  { "Execute", 
+    "!player.buff(Sudden Execute)",
+    "!target.debuff(Colossus Smash)" }},
   { "Mortal Strike"},
   { "Overpower" },
   { "Heroic Strike", {
@@ -56,7 +59,7 @@ ProbablyEngine.rotation.register(71, {
   }},
   {"Slam"},
   {"Heroic Throw"},
-  {"Battle Shout"},
+  {"Battle Shout"}
 
 
 })
