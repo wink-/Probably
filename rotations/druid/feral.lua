@@ -98,13 +98,18 @@ ProbablyEngine.rotation.register(103, {
 
   -- Build Combo
   -- Shred
-  { "Shred", {"player.buff(Clearcasting)", "player.behind"}},
-  { "Shred", {"player.buff(Berserk)", "player.behind"}},
-  { "Shred", {"player.combopoints < 5", "player.behind"}},
+  {{
+    { "Shred", "player.buff(Clearcasting)" },
+    { "Shred", "player.buff(Berserk)" },
+    { "Shred", "player.combopoints < 5" },
+  }, "player.behind" },
   -- Mangle
-  { "Mangle", {"player.buff(Clearcasting)", "player.infront"}},
-  { "Mangle", {"player.buff(Berserk)", "player.infront"}},
-  { "Mangle", {"player.combopoints < 5",  "player.infront"}},
+  {{
+    { "Mangle", "player.buff(Clearcasting)" },
+    { "Mangle", "player.buff(Berserk)" },
+    { "Mangle", "player.combopoints < 5" },
+  }, "!player.behind" },
+
 }, {
   { "Savage Roar", {
     "!player.buff(Savage Roar)",

@@ -72,7 +72,7 @@ ProbablyEngine.parser.can_cast =  function(spell, unit)
   local isUsable, notEnoughMana = IsUsableSpell(spell)
 
   -- Savage Roar is broken as fuuuuuck
-  if spellId ~= 127538 then
+  if spellId ~= 127538 and spellId ~= 33876 then
     local isSpellKnown = IsSpellKnown(spellId)
     local isPlayerSpell = IsPlayerSpell(spellId)
 
@@ -80,8 +80,6 @@ ProbablyEngine.parser.can_cast =  function(spell, unit)
       if not IsSpellKnown(spellId) then return false end
     end
   end
-
-
 
   if not isUsable then return false end
   if notEnoughMana then return false end
