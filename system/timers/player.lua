@@ -5,4 +5,4 @@ ProbablyEngine.timer.register("player", function()
   if not ProbablyEngine.module.player.behind then
     ProbablyEngine.module.player.behind = true
   end
-end, 200)
+end, 100)
