@@ -107,11 +107,21 @@ ProbablyEngine.rotation.register(103, {
   { "Mangle", {"player.combopoints < 5",  "player.infront"}},
 }, {
 
+{
+  { "Savage Roar", {
+    "!player.buff(Savage Roar)",
+    "target.range < 10",
+    "player.buff(Prowl)",
+    "target.exists",
+    "target.enemy"
+  }},
+
   { "Mangle", {
     "target.range < 10",
     "!player.behind",
     "player.buff(Prowl)",
-    "target.exists"
+    "target.exists",
+    "target.enemy",
   }, "target" },
 
   { "Ravage", {
@@ -128,6 +138,7 @@ ProbablyEngine.rotation.register(103, {
 
   { "Cat Form", {
     "player.buff(Mark of the Wild)",
+    "!player.buff(Cat Form)",
   }},
 
   { "!/cancelaura Cat Form", {
