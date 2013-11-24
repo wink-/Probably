@@ -106,8 +106,6 @@ ProbablyEngine.rotation.register(103, {
   { "Mangle", {"player.buff(Berserk)", "player.infront"}},
   { "Mangle", {"player.combopoints < 5",  "player.infront"}},
 }, {
-
-{
   { "Savage Roar", {
     "!player.buff(Savage Roar)",
     "target.range < 10",
