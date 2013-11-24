@@ -34,25 +34,29 @@ ProbablyEngine.rotation.register(71, {
   { "Avatar", "modifier.cooldowns" },
   { "Recklessness", "modifier.cooldowns" },
   { "Skull Banner", "modifier.cooldowns" },
-  { "Bladestorm", "modifier.cooldowns" },
+  
 
   -- AoE
   { "Sweeping Strikes", "modifier.multitarget" },
   { "Thunder Clap", "modifier.multitarget" },
+  { "Bladestorm", "modifier.multitarget" },  
   { "Whirlwind", "modifier.multitarget" },
   { "Dragon Roar", "modifier.multitarget" },
   { "Dragon Roar", "modifier.cooldowns" },
 
   -- Rotation
+  { "Colossus Smash",
+    "!target.debuff(Colossus Smash)"},
+  { "Execute", "!target.debuff(Colossus Smash)" },
+  { "Mortal Strike"},
   { "Overpower" },
-  { "Mortal Strike" },
-  { "Colossus Smash" },
-  { "Heroic Throw" },
   { "Heroic Strike", {
-    "player.rage > 70",
+    "player.rage > 60",
     "target.debuff(Colossus Smash)"
   }},
-  { "Slam", "player.rage > 40" },
-  { "Execute" },
+  {"Slam"},
+  {"Heroic Throw"},
+  {"Battle Shout"},
+
 
 })
